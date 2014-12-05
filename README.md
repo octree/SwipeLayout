@@ -2,3 +2,34 @@ SwipeLayout
 ===========
 
 Android 滑动显示菜单
+
+##Gif
+
+![demo](./images/demo.gif)
+
+##使用方法
+```java
+    //adapter
+    class MyAdapater extends SwipeLayoutAdapter<String>
+    {
+        public MyAdapater(Activity context,int contentViewResourceId,int actionViewResourceId,List<String> objects)
+        {
+            super(context,contentViewResourceId,actionViewResourceId,objects);
+        }
+
+        @Override
+        public void setContentView(View contentView, int position, HorizontalScrollView scrollParent) {
+            //设置内容区
+        }
+
+        @Override
+        public void setActionView(View actionView,final int position, final HorizontalScrollView scrollParent) {
+ 		//重写  设置滑动要显示的View
+
+        }
+
+        //重写，设置内容区的
+    }
+    //then set Adapter
+    listView.setAdapter(new MyAdapter(......));
+```
