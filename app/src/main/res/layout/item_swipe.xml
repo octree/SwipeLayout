@@ -9,6 +9,5 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="horizontal" >
-        <!--用户自定义的view-->
     </LinearLayout>
 </HorizontalScrollView>

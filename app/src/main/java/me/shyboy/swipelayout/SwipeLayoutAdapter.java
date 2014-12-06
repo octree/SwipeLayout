@@ -56,17 +56,17 @@ public abstract class SwipeLayoutAdapter<T> extends ArrayAdapter
      * 用户设置自定义的View(item展示的内容区)
      * @param contentView
      * @param position
-     * @param scrollParent
+     * @param parent
      */
-    public abstract void setContentView(View contentView,int position,HorizontalScrollView scrollParent);
+    public abstract void setContentView(View contentView,int position,HorizontalScrollView parent);
 
     /**
      * 用户设置自定义的View(隐藏的操作区)
      * @param actionView
      * @param position
-     * @param scrollParent
+     * @param parent
      */
-    public abstract void setActionView(View actionView,int position,HorizontalScrollView scrollParent);
+    public abstract void setActionView(View actionView,int position,HorizontalScrollView parent);
 
     @Override
     public View getView(int position,View convertView, ViewGroup parent)

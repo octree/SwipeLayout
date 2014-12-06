@@ -25,14 +25,14 @@ public class MainActivity extends Activity {
     private SwipeLayoutAdapter mAdapter;
     private ListView mListView;
     private List<String> mData;
-    private static int currentIndex = 0;
+    private static int mCurrentIndex;
 
     //插入数据
     public void insertData(int n)
     {
         for(int i = 0 ; i < n; i++)
         {
-            mData.add("hello world ----- " + currentIndex++);
+            mData.add("hello world ----- " + mCurrentIndex++);
         }
     }
 
@@ -41,6 +41,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mData = new ArrayList<String>();
+        mCurrentIndex = 0;
         insertData(5);
         mListView = (ListView)findViewById(R.id.listView);
         mAdapter = new MyAdapater(this,R.layout.item_content,R.layout.item_action,mData);
@@ -59,14 +60,14 @@ public class MainActivity extends Activity {
 
         //实现setContentView方法
         @Override
-        public void setContentView(View contentView, int position, HorizontalScrollView scrollParent) {
+        public void setContentView(View contentView, int position, HorizontalScrollView parent) {
             TextView tv = (TextView)contentView.findViewById(R.id.tv);
             tv.setText(_data.get(position));
         }
 
         //实现setActionView方法
         @Override
-        public void setActionView(View actionView,final int position, final HorizontalScrollView scrollParent) {
+        public void setActionView(View actionView,final int position, final HorizontalScrollView parent) {
 
             DisplayMetrics dm = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -77,7 +78,7 @@ public class MainActivity extends Activity {
             actionView.findViewById(R.id.action).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    scrollParent.scrollTo(0, 0);
+                    parent.scrollTo(0, 0);
                     _data.remove(position);
                     notifyDataSetChanged();
                 }
