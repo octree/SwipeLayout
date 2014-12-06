@@ -97,7 +97,7 @@ public abstract class SwipeLayoutAdapter<T> extends ArrayAdapter
         //获取屏幕宽度
         DisplayMetrics dm = new DisplayMetrics();
         _context.getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int _screenWidth = dm.widthPixels;
+        final int _screenWidth = dm.widthPixels;
         //设置默认宽度
         ViewGroup.LayoutParams lpShow =viewHolder.viewContainer.getChildAt(0).getLayoutParams();
         lpShow.width = _screenWidth;

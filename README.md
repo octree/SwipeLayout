@@ -27,8 +27,6 @@ Android 滑动显示菜单
  		//重写  设置滑动要显示的View
 
         }
-
-        //重写，设置内容区的
     }
     //then set Adapter
     listView.setAdapter(new MyAdapter(......));
