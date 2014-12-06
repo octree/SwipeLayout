@@ -63,7 +63,7 @@ public class MainActivity extends Activity {
             ((Button)actionView.findViewById(R.id.action)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    scrollBack(scrollParent);
+                    scrollParent.scrollTo(0,0);
                     _data.remove(position);
                     notifyDataSetChanged();
                 }

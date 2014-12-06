@@ -68,15 +68,6 @@ public abstract class SwipeLayoutAdapter<T> extends ArrayAdapter
      */
     public abstract void setActionView(View actionView,int position,HorizontalScrollView scrollParent);
 
-    /**
-     * 隐藏item的操作区域
-     * @param hSV
-     */
-    public void scrollBack(HorizontalScrollView hSV)
-    {
-        hSV.smoothScrollTo(0,0);
-    }
-
     @Override
     public View getView(int position,View convertView, ViewGroup parent)
     {
@@ -128,7 +119,7 @@ public abstract class SwipeLayoutAdapter<T> extends ArrayAdapter
 
                         if(_currentActiveHSV != null)
                         {
-                            scrollBack(_currentActiveHSV);
+                            _currentActiveHSV.smoothScrollTo(0,0);
                         }
                         //获得ViewHolder
                         ViewHolder viewHolder = (ViewHolder) v.getTag();
