@@ -1,6 +1,7 @@
 package me.shyboy.swipelayout;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,7 +25,7 @@ public abstract class SwipeLayoutAdapter<T> extends ArrayAdapter
     int _actionViewResourceId; //item操作区(滑动显示区域)的
     HorizontalScrollView _currentActiveHSV = null;//当前actionView处于显示状态的HorizontalScrollView
     Activity _context;
-    private int _itemWidth;
+    private int _itemWidth = 0;
 
     /**
      * 构造函数
@@ -33,10 +34,9 @@ public abstract class SwipeLayoutAdapter<T> extends ArrayAdapter
      * @param actionViewResourceId
      * @param objects
      */
-    public SwipeLayoutAdapter(Activity context,int contentViewResourceId,int actionViewResourceId,T[] objects)
+    public SwipeLayoutAdapter(Context context,int contentViewResourceId,int actionViewResourceId,T[] objects)
     {
         super(context,R.layout.item_swipe,objects);
-        _context = context;
         _contentViewResourceId = contentViewResourceId;
         _actionViewResourceId = actionViewResourceId;
     }
@@ -48,10 +48,9 @@ public abstract class SwipeLayoutAdapter<T> extends ArrayAdapter
      * @param actionViewResourceId
      * @param objects
      */
-    public SwipeLayoutAdapter(Activity context,int contentViewResourceId,int actionViewResourceId,List<T> objects)
+    public SwipeLayoutAdapter(Context context,int contentViewResourceId,int actionViewResourceId,List<T> objects)
     {
         super(context,R.layout.item_swipe,objects);
-        _context = context;
         _contentViewResourceId = contentViewResourceId;
         _actionViewResourceId = actionViewResourceId;
     }
@@ -75,15 +74,14 @@ public abstract class SwipeLayoutAdapter<T> extends ArrayAdapter
     public View getView(int position,View convertView, ViewGroup parent)
     {
         final ViewHolder viewHolder;
-        View contentView,actionView;
         if(convertView == null)
         {
             //获取Item
             convertView = LayoutInflater.from(getContext()).inflate(_resourceId,parent,false);
             //获取内容显示区域的View
-            contentView = LayoutInflater.from(getContext()).inflate(_contentViewResourceId,parent,false);
+            View contentView = LayoutInflater.from(getContext()).inflate(_contentViewResourceId,parent,false);
             //获取操作区的View
-            actionView = LayoutInflater.from(getContext()).inflate(_actionViewResourceId,parent,false);
+            View actionView = LayoutInflater.from(getContext()).inflate(_actionViewResourceId,parent,false);
             viewHolder = new ViewHolder();
             //获取item组件
             viewHolder.hSView = (HorizontalScrollView)convertView.findViewById(R.id.hsv);
