@@ -3,9 +3,9 @@ SwipeLayout
 
 Android 滑动显示菜单
 
-##Gif
+##Demo
 
-![demo](./images/demo.gif)
+![demo](./images/demo.gif) --------  ![demo](./images/demo2.gif)
 
 ##使用方法
 ```java
