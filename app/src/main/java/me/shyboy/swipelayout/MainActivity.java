@@ -66,12 +66,14 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mData = new ArrayList<String>();
-        insertData(26);
+        insertData(30);
         mCurrentIndex = 0;
         mListView = (ListView)findViewById(R.id.listView);
         mGridView = (GridView)findViewById(R.id.gridview);
         mAdapter = new MyAdapater(this,R.layout.item_content,R.layout.item_action,mData);
-        mListView.setAdapter(mAdapter);
+        mGridView.setAdapter(mAdapter);
+        //如果要使用ListView，只需要注释掉mGridView.setAdapter(mAdapter);去掉下方的注释
+        //mListView.setAdapter(mAdapter);
     }
 
     //适配器
