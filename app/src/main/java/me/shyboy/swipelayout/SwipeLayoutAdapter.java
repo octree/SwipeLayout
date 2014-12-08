@@ -72,7 +72,7 @@ public abstract class SwipeLayoutAdapter<T> extends ArrayAdapter
     @Override
     public View getView(int position,View convertView, ViewGroup parent)
     {
-        final ViewHolder viewHolder;
+        final SwipeViewHolder viewHolder;
         if(convertView == null)
         {
             //获取Item
@@ -81,7 +81,7 @@ public abstract class SwipeLayoutAdapter<T> extends ArrayAdapter
             View contentView = LayoutInflater.from(getContext()).inflate(_contentViewResourceId,parent,false);
             //获取操作区的View
             View actionView = LayoutInflater.from(getContext()).inflate(_actionViewResourceId,parent,false);
-            viewHolder = new ViewHolder();
+            viewHolder = new SwipeViewHolder();
             //获取item组件
             viewHolder.hSView = (HorizontalScrollView)convertView.findViewById(R.id.hsv);
             viewHolder.viewContainer = (LinearLayout)convertView.findViewById(R.id.item_view_container);
@@ -92,7 +92,7 @@ public abstract class SwipeLayoutAdapter<T> extends ArrayAdapter
         }
         else
         {
-            viewHolder = (ViewHolder)convertView.getTag();
+            viewHolder = (SwipeViewHolder)convertView.getTag();
         }
         //获取item的宽度
         ViewTreeObserver vto = viewHolder.hSView.getViewTreeObserver();
@@ -117,55 +117,7 @@ public abstract class SwipeLayoutAdapter<T> extends ArrayAdapter
         //定义item隐藏的操作区域
         setActionView(viewHolder.viewContainer.getChildAt(1),position,viewHolder.hSView);
 
-        convertView.setOnTouchListener(new View.OnTouchListener()
-        {
-            @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
-
-                //获得ViewHolder
-                ViewHolder viewHolder = (ViewHolder) v.getTag();
-
-                if(_currentActiveHSV != null && _currentActiveHSV != viewHolder.hSView)
-                {
-                    _currentActiveHSV.smoothScrollTo(0,0);
-                    _currentActiveHSV = null;
-                    return true;
-                }
-                switch (event.getAction())
-                {
-
-                    case MotionEvent.ACTION_UP:
-                        //获得HorizontalScrollView滑动的水平方向值.
-                        int scrollX = viewHolder.hSView.getScrollX();
-
-                        //获得操作区域的长度
-                        int actionW = viewHolder.viewContainer.getChildAt(1).getWidth();
-
-                        //注意使用smoothScrollTo,这样效果看起来比较圆滑,不生硬
-                        //如果水平方向的移动值<操作区域的长度的一半,就复原
-                        if (scrollX < actionW / 2)
-                        {
-                            viewHolder.hSView.smoothScrollTo(0, 0);
-                        }
-                        else//否则的话显示操作区域
-                        {
-                            viewHolder.hSView.smoothScrollTo(actionW, 0);
-                            _currentActiveHSV = viewHolder.hSView;
-                        }
-                        return true;
-                }
-                return false;
-            }
-        });
+        convertView.setOnTouchListener(new SwipeOnTouchListener());
         return convertView;
-    }
-    /*
-     *ViewHolder
-     */
-    class ViewHolder
-    {
-        HorizontalScrollView hSView;
-        LinearLayout viewContainer;
     }
 }

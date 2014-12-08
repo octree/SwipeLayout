@@ -71,9 +71,9 @@ public class MainActivity extends Activity {
         mListView = (ListView)findViewById(R.id.listView);
         mGridView = (GridView)findViewById(R.id.gridview);
         mAdapter = new MyAdapater(this,R.layout.item_content,R.layout.item_action,mData);
-        mGridView.setAdapter(mAdapter);
-        //如果要使用ListView，只需要注释掉mGridView.setAdapter(mAdapter);去掉下方的注释
-        //mListView.setAdapter(mAdapter);
+        //mGridView.setAdapter(mAdapter);
+        //如果要使用GridView，只需要注释掉mListView.setAdapter(mAdapter);去掉上方的注释
+        mListView.setAdapter(mAdapter);
     }
 
     //适配器
