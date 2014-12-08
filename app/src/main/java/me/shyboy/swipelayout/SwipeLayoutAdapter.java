@@ -2,7 +2,6 @@ package me.shyboy.swipelayout;
 
 import android.app.Activity;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -73,7 +72,7 @@ public abstract class SwipeLayoutAdapter<T> extends ArrayAdapter
     @Override
     public View getView(int position,View convertView, ViewGroup parent)
     {
-        final ViewHolder viewHolder;
+        ViewHolder viewHolder;
         View contentView,actionView;
         if(convertView == null)
         {
@@ -96,20 +95,16 @@ public abstract class SwipeLayoutAdapter<T> extends ArrayAdapter
         {
             viewHolder = (ViewHolder)convertView.getTag();
         }
-        ViewTreeObserver vto = viewHolder.hSView.getViewTreeObserver();
-        vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-            @Override
-            public boolean onPreDraw() {
-                int _itemWidth = viewHolder.hSView.getMeasuredWidth();
-                //设置默认宽度
-                ViewGroup.LayoutParams lpContent =viewHolder.viewContainer.getChildAt(0).getLayoutParams();
-                lpContent.width = _itemWidth;
-                //设置默认宽度
-                ViewGroup.LayoutParams lpAction = viewHolder.viewContainer.getChildAt(1).getLayoutParams();
-                lpAction.width = _itemWidth / 3 * 2;
-                return true;
-            }
-        });
+        //获取屏幕宽度
+        DisplayMetrics dm = new DisplayMetrics();
+        _context.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        final int _screenWidth = dm.widthPixels;
+        //设置默认宽度
+        ViewGroup.LayoutParams lpContent =viewHolder.viewContainer.getChildAt(0).getLayoutParams();
+        lpContent.width = _screenWidth;
+        //设置默认宽度
+        ViewGroup.LayoutParams lpAction = viewHolder.viewContainer.getChildAt(1).getLayoutParams();
+        lpAction.width = _screenWidth/3 * 2;
         //定义item显示的内容区
         setContentView(viewHolder.viewContainer.getChildAt(0),position,viewHolder.hSView);
         //定义item隐藏的操作区域
@@ -120,17 +115,21 @@ public abstract class SwipeLayoutAdapter<T> extends ArrayAdapter
             public boolean onTouch(View v, MotionEvent event)
             {
 
+                //获得ViewHolder
+                ViewHolder viewHolder = (ViewHolder) v.getTag();
+
+                if(_currentActiveHSV != null && _currentActiveHSV != viewHolder.hSView)
+                {
+                    _currentActiveHSV.smoothScrollTo(0,0);
+                    _currentActiveHSV = null;
+                    return true;
+                }
                 switch (event.getAction())
                 {
+
                     case MotionEvent.ACTION_UP:
 
-                        //获得ViewHolder
-                        ViewHolder viewHolder = (ViewHolder) v.getTag();
 
-                        if(_currentActiveHSV != null && _currentActiveHSV != viewHolder.hSView)
-                        {
-                            _currentActiveHSV.smoothScrollTo(0,0);
-                        }
                         //获得HorizontalScrollView滑动的水平方向值.
                         int scrollX = viewHolder.hSView.getScrollX();
 

@@ -6,6 +6,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -49,13 +50,14 @@ public class MainActivity extends Activity {
     private ListView mListView;
     private List<String> mData;
     private static int mCurrentIndex;
+    private GridView mGridView;
 
     //插入数据
     public void insertData(int n)
     {
         for(int i = 0 ; i < n; i++)
         {
-            mData.add("hello world ----- " + mCurrentIndex++);
+            mData.add("hello " + mCurrentIndex++);
         }
     }
 
@@ -64,9 +66,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mData = new ArrayList<String>();
+        insertData(26);
         mCurrentIndex = 0;
-        insertData(5);
         mListView = (ListView)findViewById(R.id.listView);
+        mGridView = (GridView)findViewById(R.id.gridview);
         mAdapter = new MyAdapater(this,R.layout.item_content,R.layout.item_action,mData);
         mListView.setAdapter(mAdapter);
     }
@@ -92,12 +95,6 @@ public class MainActivity extends Activity {
         @Override
         public void setActionView(View actionView,final int position, final HorizontalScrollView parent) {
 
-            DisplayMetrics dm = new DisplayMetrics();
-            getWindowManager().getDefaultDisplay().getMetrics(dm);
-            int screenWidth = dm.widthPixels;
-            ViewGroup.LayoutParams lp = actionView.getLayoutParams();
-            lp.width = screenWidth / 3 * 2;
-
             actionView.findViewById(R.id.action).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -110,7 +107,7 @@ public class MainActivity extends Activity {
             actionView.findViewById(R.id.star).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(MainActivity.this,"start item - " + position,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,"star item - " + position,Toast.LENGTH_SHORT).show();
                 }
             });
 
