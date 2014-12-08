@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="me.shyboy.swipelayout.GridActivity"
+            android:label="@string/title_activity_grid" >
+        </activity>
     </application>
 
 </manifest>
