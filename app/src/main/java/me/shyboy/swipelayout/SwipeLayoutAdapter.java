@@ -24,7 +24,6 @@ public abstract class SwipeLayoutAdapter<T> extends ArrayAdapter
     int _contentViewResourceId;   //item的内容区 的id
     int _actionViewResourceId; //item操作区(滑动显示区域)的
     HorizontalScrollView _currentActiveHSV = null;//当前actionView处于显示状态的HorizontalScrollView
-    Activity _context;
     private int _itemWidth = 0;
 
     /**
