@@ -1,11 +1,7 @@
 package me.shyboy.swipelayout;
 
-import android.app.Activity;
 import android.content.Context;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -16,14 +12,13 @@ import android.widget.LinearLayout;
 import java.util.List;
 
 /**
- * Created by foul on 14/12/5.
+ * Created by ShyBoooy on 14/12/5.
  */
 public abstract class SwipeLayoutAdapter<T> extends ArrayAdapter
 {
     private static final int _resourceId = R.layout.item_swipe;
     int _contentViewResourceId;   //item的内容区 的id
     int _actionViewResourceId; //item操作区(滑动显示区域)的
-    HorizontalScrollView _currentActiveHSV = null;//当前actionView处于显示状态的HorizontalScrollView
     private int _itemWidth = 0;
 
     /**
@@ -93,6 +88,7 @@ public abstract class SwipeLayoutAdapter<T> extends ArrayAdapter
         else
         {
             viewHolder = (SwipeViewHolder)convertView.getTag();
+            viewHolder.hSView.scrollTo(0,0);
         }
         //获取item的宽度
         ViewTreeObserver vto = viewHolder.hSView.getViewTreeObserver();
@@ -116,7 +112,7 @@ public abstract class SwipeLayoutAdapter<T> extends ArrayAdapter
         setContentView(viewHolder.viewContainer.getChildAt(0),position,viewHolder.hSView);
         //定义item隐藏的操作区域
         setActionView(viewHolder.viewContainer.getChildAt(1),position,viewHolder.hSView);
-
+        //设置滑动事件监听
         convertView.setOnTouchListener(new SwipeOnTouchListener());
         return convertView;
     }
